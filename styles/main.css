@@ -1,0 +1,217 @@
+.container {
+    margin: 0px;
+    width: 100%;
+    max-width: none !important;
+    padding: 0px 10vw;
+}
+
+figcaption {
+    font-size: 0.8em;
+}
+
+@media (max-width: 768px) {
+    #event-images figure {
+        margin: 0px;
+    }
+}
+
+/* figure:has(video) {
+    width: 240px;
+    float: right;
+} */
+
+.inline-images {
+    width: 220px;
+}
+
+@media (max-width: 768px) {
+    .inline-images {
+        width: 100%;
+    }
+}
+
+.inline-images .media-div video {
+    max-height: 280px;
+}
+
+/* figure:nth-of-type(2n) {
+    float: left;
+} */
+
+.legend {
+    opacity: 0 !important;
+}
+
+.legend:hover {
+    opacity: 0.5 !important;
+}
+
+.divider::after {
+    margin-left: 0 !important;
+}
+
+.divider::before {
+    margin-right: 0 !important;
+}
+
+.divider::after,
+.divider::before {
+    background-color: gray;
+}
+
+.banana picture {
+    width: 300px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .table td,
+    .table th {
+        border-width: 0 0 1px;
+    }
+}
+
+/* .table tbody tr:last-child td,
+.table tbody tr:last-child th {
+    border-bottom-width: 1px;
+} */
+
+@media (prefers-color-scheme: dark) {
+    .modal-background {
+        background-color: rgba(10, 10, 10, 0.86);
+    }
+}
+
+/* https://github.com/leandrowd/react-responsive-carousel/issues/325 */
+.carousel .slide {
+    display: flex;
+    justify-content: center;
+}
+
+@media (prefers-color-scheme: dark) {
+    button a {
+        color: white;
+    }
+}
+
+a.navbar-item:focus {
+    background-color: inherit;
+}
+
+/*(event page) swap order of the text and info box columns on mobile*/
+/* @media (max-width: 768px) {
+    .event-columns {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+} */
+
+.content ul {
+    margin-left: 1em;
+    margin-top: 0;
+}
+
+@media (max-width: 768px) {
+    /* hide the summaries on mobile or else the web page will be way too long */
+    .event-summary {
+        display: none;
+    }
+
+    /* using css to make sure the event images come after on mobile https://stackoverflow.com/a/26113333/11245570 */
+    .event-images-div {
+        order: 2;
+    }
+
+    .event-summary-div {
+        order: 1;
+    }
+
+    .event {
+        display: flex;
+    }
+}
+
+.event-columns .media-div {
+    max-height: 700px;
+}
+
+.rainbow_text_animated {
+    background: linear-gradient(
+        to right,
+        /* #6666ff,
+        #0099ff,
+        #00ff00,
+        #ff3399,
+        #6666ff */ red,
+        orange,
+        yellow,
+        lime,
+        aqua,
+        blue,
+        magenta
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow_animation 6s ease-in-out infinite;
+    background-size: 400% 100%;
+    line-height: 1.5;
+    font-size: 2.5rem;
+}
+
+@keyframes rainbow_animation {
+    0%,
+    100% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 100% 0;
+    }
+}
+
+#filip-memories .carousel .control-dots .dot {
+    margin: 0px;
+}
+
+.today a:not(.button):not(.tag):not(.dropdown-item) {
+    color: #5ea3e4;
+    text-decoration: inherit;
+}
+
+@media (prefers-color-scheme: dark) {
+    .message-header {
+        color: #363636;
+    }
+}
+
+.swiper-slide {
+    height: auto !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    svg.search-box-icon path {
+        fill: gray !important;
+    }
+}
+
+:root {
+    --text-color: #363636;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: #b5b5b5;
+    }
+}
+
+.slider-div {
+    height: 600px;
+}
+
+.slider-div video {
+    height: 600px;
+}
+
+.message a:not(.button):not(.tag):not(.dropdown-item) {
+    text-decoration: none;
+}

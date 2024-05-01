@@ -1,0 +1,38 @@
+{
+    "name": "wiki",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev -p 3002",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@creativebulma/bulma-divider": "^1.1.0",
+        "@faker-js/faker": "^8.4.1",
+        "@mdi/js": "^7.3.67",
+        "@mdi/react": "^1.6.1",
+        "bulma": "^0.9.4",
+        "bulma-floating-button": "^1.0.3",
+        "bulma-prefers-dark": "^0.1.0-beta.1",
+        "bulma-switch": "^2.0.4",
+        "bulma-timeline": "^3.0.5",
+        "fuzzysort": "^2.0.4",
+        "hjson": "^3.2.2",
+        "lodash": "^4.17.21",
+        "luxon": "^3.4.4",
+        "next": "^14.2.3",
+        "react": "^18.2.0",
+        "react-collapsible": "^2.10.0",
+        "react-dom": "^18.2.0",
+        "react-lazyload-v18": "^1.0.0",
+        "react-responsive-carousel": "^3.2.23",
+        "recharts": "^2.10.3"
+    },
+    "devDependencies": {
+        "eslint": "8.20.0",
+        "eslint-config-next": "^14.2.3",
+        "tsx": "^4.7.2"
+    }
+}
