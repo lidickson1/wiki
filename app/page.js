@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PeopleList } from "@/components/people";
-import { Images } from "@/components/images";
+import Icon from "@mdi/react";
+import { mdiGithub } from "@mdi/js";
 import { getPeople, getEvents, groupBy } from "@/components/lib";
 import { DateTime } from "luxon";
 import ordinal_suffix from "@/components/ordinal";
@@ -64,6 +65,17 @@ export default function Home() {
                         </button>
                         <button className="button">
                             <Link href="/birthdays">🎂 Upcoming Birthdays</Link>
+                        </button>
+                        <button className="button">
+                            {/* bruh, needed to do this to align the icon properly: https://stackoverflow.com/a/46656420 */}
+                            <a href="https://github.com/lidickson1/wiki">
+                                <Icon
+                                    path={mdiGithub}
+                                    size={1}
+                                    style={{ verticalAlign: "bottom" }}
+                                />{" "}
+                                View the Source Code
+                            </a>
                         </button>
                     </div>
                     <TodayEvents events={events} />
