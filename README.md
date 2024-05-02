@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Wiki Demo
+
+This is a demo of a Wiki clone website that I built using Javascript, Bulma, and [Next.js](https://nextjs.org/). The original purpose of the website was to be a Wikipedia-like website for my group of friends where we documented our members and all of the events/hangouts/parties that have happened over the years. Due to privacy concerns, that site is private so I created this demo site and filled it with randomly generated fake/placeholder data using [Faker](https://fakerjs.dev/). The general theme is akin to a TV show where there are main characters, side characters, seasons, and events.
 
 ## Getting Started
 
@@ -10,25 +12,8 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3002](http://localhost:3002) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Content
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+All of the data on the website is randomly generated using [Faker](https://fakerjs.dev/). The file responsible for this is `generate.js`. After running it, it will generate the required data/files which are in the `people` folder and `events` folder.
