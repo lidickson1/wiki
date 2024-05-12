@@ -84,15 +84,20 @@ fs.mkdirSync("events");
 for (let i = 0; i < seasons.length; i++) {
     fs.mkdirSync(`events/${seasons[i][0]}`);
     for (let j = 0; j < EVENTS; j++) {
+        const seasonPeople = Object.keys(
+            _.pickBy(people, (x) => x.seasons.includes(seasonNumbers[i]))
+        );
+        const participants = seasonPeople.filter((_) => Math.random() < 0.3);
+        if (!participants.length) {
+            participants.push(_.sample(seasonPeople));
+        }
         const event = {
             name: _.startCase(faker.word.words({ count: { min: 1, max: 3 } })),
             date: faker.date.between({
                 from: seasons[i][1].date,
                 to: seasons[i + 1]?.at(1)?.date ?? Date.now(),
             }),
-            participants: Object.keys(
-                _.pickBy(people, (x) => x.seasons.includes(seasonNumbers[i]))
-            ),
+            participants: participants,
             content: faker.lorem.sentences({ min: 3, max: 20 }),
             location: faker.location.city(),
             media:
