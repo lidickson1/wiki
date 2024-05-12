@@ -97,10 +97,6 @@ export default function Event({ params }) {
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>Alcohol</th>
-                                        <td>{(event.alcohol ?? false).toString()}</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
