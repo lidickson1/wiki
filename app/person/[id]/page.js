@@ -14,7 +14,7 @@ export default function Person({ params }) {
     const person = getPeople()[params.id];
     //load bio
     if (person.bio) {
-        person.bio = loadHTML(fs, person.bio, params.id);
+        person.bio = loadHTML(person.bio, params.id);
     } else {
         person.bio = loadHTMLFile(params.id, `people/${params.id}/bio.html`);
     }
@@ -29,7 +29,7 @@ export default function Person({ params }) {
     const events = getEvents()
         .filter((x) => x.participants.includes(params.id))
         .map((x) => x.section);
-    const personEvents = Object.keys(getPeopleEvents(fs)[params.id]);
+    const personEvents = Object.keys(getPeopleEvents()[params.id]);
     person.sections = [...new Set(events.concat(personEvents))];
 
     //I'm doing it like this to preserve the ordering
@@ -60,15 +60,9 @@ export default function Person({ params }) {
                                             <a href="#background">Background</a>
                                         </li>
                                     )}
-                                    {Object.entries(eras)
-                                        .filter(([section, _]) => person.sections.includes(section))
-                                        .map(([id, section]) => (
-                                            <SectionItem
-                                                key={id}
-                                                section={id}
-                                                name={section.name}
-                                            />
-                                        ))}
+                                    {sections.map((x) => (
+                                        <SectionItem key={x} section={x} name={eras[x].name} />
+                                    ))}
                                     {person.quotes && (
                                         <li>
                                             <a href="#quotes">Quotes</a>
@@ -99,18 +93,9 @@ export default function Person({ params }) {
                         ></div>
                     </div>
                 )}
-                {Object.entries(eras)
-                    .filter(([section, _]) => person.sections.includes(section))
-                    .map(([id, section]) => (
-                        <Section
-                            id={id}
-                            name={section.name}
-                            // collapsed={collapsed[section]}
-                            // handler={(value) => setCollapsed({ ...collapsed, [section]: value })}
-                            key={id}
-                            person={params.id}
-                        />
-                    ))}
+                {sections.map((x) => (
+                    <Section key={x} id={x} name={eras[x].name} person={params.id} />
+                ))}
                 {person.quotes && (
                     <div id="quotes" style={{ clear: "both" }}>
                         <h1 className="title">Quotes</h1>

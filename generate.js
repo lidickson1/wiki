@@ -116,3 +116,4 @@ for (let i = 0; i < seasons.length; i++) {
         );
     }
 }
+//TODO it is possible for a character to not be in any events

@@ -14,15 +14,15 @@ export default function Event({ params }) {
     const event = JSON.parse(fs.readFileSync(`events/${section}/${params.id}.json`, "utf8"));
     event.id = params.id;
     if (event.content) {
-        event.content = loadHTML(fs, event.content);
+        event.content = loadHTML(event.content);
     } else {
         event.content = loadHTMLFile(null, `events/${section}/${params.id}.html`);
     }
 
     if (event.location) {
-        event.location = loadHTML(fs, event.location);
+        event.location = loadHTML(event.location);
     } else if (event.locations) {
-        event.locations = event.locations.map((x) => loadHTML(fs, x));
+        event.locations = event.locations.map((x) => loadHTML(x));
     }
 
     event.section = section;
@@ -35,10 +35,20 @@ export default function Event({ params }) {
             <div className="divider"></div>
 
             <div className="columns event-columns mb-4">
-                <div className="column is-two-thirds" id="event-images">
-                    {event.media && <Images images={event.media} />}
-                </div>
-                <div className="column">
+                {event.media ? (
+                    <div className="column" id="event-images">
+                        {event.media && <Images images={event.media} />}
+                    </div>
+                ) : (
+                    <div
+                        className="column"
+                        dangerouslySetInnerHTML={{
+                            __html: "<p>" + event.content + "</p>",
+                        }}
+                    ></div>
+                )}
+
+                <div className="column is-one-third">
                     <div className="card">
                         <div className="card-image"></div>
                         <div className="card-content">
@@ -103,11 +113,13 @@ export default function Event({ params }) {
                     </div>
                 </div>
             </div>
-            <div
-                dangerouslySetInnerHTML={{
-                    __html: "<p>" + event.content + "</p>",
-                }}
-            ></div>
+            {event.media && (
+                <div
+                    dangerouslySetInnerHTML={{
+                        __html: "<p>" + event.content + "</p>",
+                    }}
+                ></div>
+            )}
         </div>
     );
 }

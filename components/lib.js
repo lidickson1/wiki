@@ -4,52 +4,50 @@ import Hjson from "hjson";
 
 export function getPeople() {
     return Object.fromEntries(
-        fs
-            .readdirSync(`people`)
-            .map((id) => [
-                id,
-                { ...JSON.parse(fs.readFileSync(`people/${id}/${id}.json`, "utf8")), id: id },
-            ])
+        fs.readdirSync(path.join(process.cwd(), "people")).map((id) => [
+            id,
+            {
+                ...JSON.parse(
+                    fs.readFileSync(path.join(process.cwd(), "people", id, `${id}.json`)),
+                    "utf8"
+                ),
+                id: id,
+            },
+        ])
     );
 }
 
 export function getEvents() {
-    return (
-        fs
-            .readdirSync("events")
-            .map((section) =>
-                fs
-                    .readdirSync(`events/${section}`)
-                    .filter((filename) => path.parse(filename).ext === ".json")
-                    .map((filename) => ({
-                        ...JSON.parse(fs.readFileSync(`events/${section}/${filename}`, "utf8")),
-                        id: path.parse(filename).name,
-                        section: section,
-                    }))
-            )
-            .flat()
-            //TODO this is temporary, all events should have a name
-            //once I finish going through all events I can remove this
-            .map((event) => ({
-                ...event,
-                name:
-                    event.name ??
-                    event.id.replaceAll("_", " ").replace(/\b\w/g, (l) => l.toUpperCase()),
-            }))
-    );
+    return fs
+        .readdirSync(path.join(process.cwd(), "events"))
+        .map((section) =>
+            fs
+                .readdirSync(path.join(process.cwd(), "events", section))
+                .filter((filename) => path.parse(filename).ext === ".json")
+                .map((filename) => ({
+                    ...JSON.parse(
+                        fs.readFileSync(
+                            path.join(process.cwd(), "events", section, filename),
+                            "utf8"
+                        )
+                    ),
+                    id: path.parse(filename).name,
+                    section: section,
+                }))
+        )
+        .flat();
 }
 
 //get people specific events
-export function getPeopleEvents(fs) {
+export function getPeopleEvents() {
     const peopleEvents = {};
-    for (const id of Object.keys(getPeople(fs))) {
+    for (const id of Object.keys(getPeople())) {
         const sectionEvents = {};
-        for (const section of fs.readdirSync("events")) {
+        for (const section of fs.readdirSync(path.join(process.cwd(), "events"))) {
             //person specific events
-            if (fs.existsSync(`people/${id}/${section}.hjson`)) {
-                for (const event of Hjson.parse(
-                    fs.readFileSync(`people/${id}/${section}.hjson`, "utf8")
-                )) {
+            const filePath = path.join(process.cwd(), "people", id, `${section}.hjson`);
+            if (fs.existsSync(filePath)) {
+                for (const event of Hjson.parse(fs.readFileSync(filePath, "utf8"))) {
                     //TODO duplicate code
                     //this can happen if the person only has person specific events for this section
                     if (!(section in sectionEvents)) {
@@ -67,16 +65,6 @@ export function getPeopleEvents(fs) {
     return peopleEvents;
 }
 
-export function loadImages(fs, id) {
-    const images = [];
-    for (let i = 1; i < 20; i++) {
-        if (fs.existsSync(`public/images/${id}_${i}.jpg`)) {
-            images.push(`/images/${id}_${i}.jpg`);
-        }
-    }
-    return images;
-}
-
 export function getPersonImage(person) {
     return Object.values(person.images).at(-1).at(-1);
 }
@@ -92,15 +80,14 @@ function replaceKey(string, key, keys) {
     return string.replace(new RegExp(`\\b${key}\\b`), `<a href="${keys[key]}">${key}</a>`);
 }
 
-export function loadHTML(fs, string, currentPerson) {
+export function loadHTML(string, currentPerson) {
     string = string.trim();
     //markdown links
     string = string.replaceAll(/\[([^\[]+)\](\(([^)]*))\)/gim, '<a href="$3">$1</a>');
-    const people = Object.entries(getPeople(fs));
+    const people = Object.entries(getPeople());
     const keys = Object.fromEntries(
         people.map(([id, person]) => [person.first_name, `/person/${id}`])
     );
-    delete keys.Daniel;
     for (const key of Object.keys(keys)) {
         if (currentPerson) {
             //ignore if we are linking to the current person
@@ -123,12 +110,5 @@ export function loadHTML(fs, string, currentPerson) {
 }
 
 export function loadHTMLFile(id, fileName) {
-    return loadHTML(fs, fs.readFileSync(fileName, "utf-8"), id);
-}
-
-export function groupBy(xs, key) {
-    return xs.reduce(function (rv, x) {
-        (rv[key(x)] = rv[key(x)] || []).push(x);
-        return rv;
-    }, {});
+    return loadHTML(fs.readFileSync(fileName, "utf-8"), id);
 }

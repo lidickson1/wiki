@@ -19,7 +19,7 @@ export default function Section({ id, name, person }) {
     useEffect(() => {
         if (!collapsed[id] && !dateEvents.length && !loading) {
             setLoading(true);
-            fetch("/api/person_events", {
+            fetch("/api/person-events", {
                 method: "POST",
                 headers: {
                     // 'Accept': 'application/json',

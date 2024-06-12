@@ -12,7 +12,7 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3002](http://localhost:3002) with your browser to see the result.
+Open the provided link in the terminal output with your browser to view the website (usually on port 3000).
 
 ## Content
 

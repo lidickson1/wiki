@@ -29,10 +29,12 @@ export default function RootLayout({
                         alignItems: "center",
                     }}
                 >
-                    <div className="container">
-                        <Navigation people={people} />
+                    <div style={{ width: "100%" }}>
+                        <div className="container">
+                            <Navigation people={people} />
+                        </div>
+                        {children}
                     </div>
-                    {children}
                     <footer className="footer py-5" style={{ width: "100%" }}>
                         <div className="content has-text-centered">
                             <p style={{ fontSize: "0.9rem" }}>

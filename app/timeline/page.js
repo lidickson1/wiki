@@ -1,10 +1,11 @@
 import "bulma-timeline/dist/css/bulma-timeline.min.css";
 import "bulma-switch/dist/css/bulma-switch.min.css";
-import { getEvents, groupBy } from "@/components/lib";
+import { getEvents } from "@/components/lib";
 import ordinal_suffix from "@/components/ordinal";
 import { DateTime, Settings } from "luxon";
 import seasons from "@/seasons.json";
 import Timeline from "./timeline";
+import groupBy from "@/components/group_by";
 
 export default function TimelinePage() {
     Settings.defaultZone = "America/Toronto";

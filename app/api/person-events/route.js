@@ -1,14 +1,10 @@
 //route for getting the events for a specific generation for a specific person
 
-import { getEvents, getPeopleEvents, groupBy, loadHTML } from "@/components/lib";
-import fs from "fs";
-import path from "path";
+import { getEvents, getPeopleEvents, loadHTML } from "@/components/lib";
 import { DateTime } from "luxon";
+import groupBy from "@/components/group_by";
 
-console.log(path.join(process.cwd(), "people"));
-console.log(path.join(process.cwd(), "events"));
-
-const events = getEvents(fs, path);
+const events = getEvents();
 
 for (const event of events) {
     if (!event.summary) {
@@ -19,13 +15,14 @@ for (const event of events) {
 }
 
 //person specific events
-const peopleEvents = getPeopleEvents(fs);
+const peopleEvents = getPeopleEvents();
 
 //req contains person and generation/section
-export default async function handler(req, res) {
+export async function POST(req) {
+    const { person, section } = await req.json();
     const personEvents = events
-        .filter((x) => x.section === req.body.section && x.participants.includes(req.body.person))
-        .concat(peopleEvents[req.body.person][req.body.section] ?? [])
+        .filter((x) => x.section === section && x.participants.includes(person))
+        .concat(peopleEvents[person][section] ?? [])
         .map((x) => JSON.parse(JSON.stringify(x))); //deep copy each event
 
     //sort events by date
@@ -35,11 +32,11 @@ export default async function handler(req, res) {
 
     //load html
     for (const event of personEvents) {
-        event.summary = loadHTML(fs, event.summary, req.body.person);
+        event.summary = loadHTML(event.summary, person);
     }
 
     //combine events if they are on the same day
-    res.status(200).send(
+    return Response.json(
         Object.entries(
             groupBy(personEvents, (event) => DateTime.fromISO(event.date).startOf("day").toString())
         ).map(([_, events]) => ({

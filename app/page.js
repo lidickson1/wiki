@@ -2,10 +2,11 @@ import Link from "next/link";
 import { PeopleList } from "@/components/people";
 import Icon from "@mdi/react";
 import { mdiGithub } from "@mdi/js";
-import { getPeople, getEvents, groupBy } from "@/components/lib";
+import { getPeople, getEvents } from "@/components/lib";
 import { DateTime } from "luxon";
 import ordinal_suffix from "@/components/ordinal";
 import TodayEvents from "@/components/TodayEvents";
+import groupBy from "@/components/group_by";
 
 export default function Home() {
     const people = getPeople();

@@ -59,10 +59,6 @@ figcaption {
     background-color: gray;
 }
 
-.banana picture {
-    width: 300px;
-}
-
 @media (prefers-color-scheme: dark) {
     .table td,
     .table th {
@@ -131,7 +127,7 @@ a.navbar-item:focus {
 }
 
 .event-columns .media-div {
-    max-height: 700px;
+    max-height: 600px;
 }
 
 .rainbow_text_animated {
