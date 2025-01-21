@@ -10,11 +10,20 @@ import Link from "next/link";
 import LazyLoad from "react-lazyload-v18";
 import { useContext, useEffect, useState } from "react";
 import Context from "./provider";
+import { useRouter } from "next/navigation";
 
 export default function Section({ id, name, person }) {
     const { collapsed, setCollapsed } = useContext(Context);
     const [loading, setLoading] = useState(false);
     const [dateEvents, setDateEvents] = useState([]);
+    const router = useRouter();
+
+    useEffect(() => {
+        if (window.location.hash === `#${id}`) {
+            setCollapsed({ ...collapsed, [id]: false });
+            router.replace(`#${id}`); //scroll to the section
+        }
+    }, []);
 
     useEffect(() => {
         if (!collapsed[id] && !dateEvents.length && !loading) {
@@ -140,8 +149,18 @@ export default function Section({ id, name, person }) {
 }
 
 function SectionTitle({ id, name, collapsed }) {
+    const router = useRouter();
+
     return (
-        <div id={id} style={{ cursor: "pointer" }}>
+        <div
+            id={id}
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+                if (collapsed) {
+                    router.replace(`#${id}`);
+                }
+            }}
+        >
             <div className="level">
                 <div className="level-left">
                     <h1 className="title">{name}</h1>

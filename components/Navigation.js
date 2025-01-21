@@ -59,11 +59,15 @@ export default function Navigation({ people }) {
                     className={"navbar-menu " + (menuToggle ? "is-active" : "")}
                 >
                     <div className="navbar-start">
-                        <Link href="/" className="navbar-item">
+                        <Link href="/" className="navbar-item" onClick={() => setMenuToggle(false)}>
                             Home
                         </Link>
 
-                        <Link href="/timeline" className="navbar-item">
+                        <Link
+                            href="/timeline"
+                            className="navbar-item"
+                            onClick={() => setMenuToggle(false)}
+                        >
                             Timeline
                         </Link>
 

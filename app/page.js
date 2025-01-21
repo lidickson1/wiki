@@ -61,23 +61,17 @@ export default function Home() {
                         responsive and can be viewed comfortably on both desktop and mobile devices.
                     </p>
                     <div className="buttons mt-4">
-                        <button className="button">
-                            <Link href="/timeline">📅 View Timeline</Link>
-                        </button>
-                        <button className="button">
-                            <Link href="/birthdays">🎂 Upcoming Birthdays</Link>
-                        </button>
-                        <button className="button">
-                            {/* bruh, needed to do this to align the icon properly: https://stackoverflow.com/a/46656420 */}
-                            <a href="https://github.com/lidickson1/wiki">
-                                <Icon
-                                    path={mdiGithub}
-                                    size={1}
-                                    style={{ verticalAlign: "bottom" }}
-                                />{" "}
-                                View the Source Code
-                            </a>
-                        </button>
+                        <Link className="button" href="/timeline">
+                            📅 View Timeline
+                        </Link>
+                        <Link className="button" href="/birthdays">
+                            🎂 Upcoming Birthdays
+                        </Link>
+                        {/* bruh, needed to do this to align the icon properly: https://stackoverflow.com/a/46656420 */}
+                        <a className="button" href="https://github.com/lidickson1/wiki">
+                            <Icon path={mdiGithub} size={1} style={{ verticalAlign: "bottom" }} />{" "}
+                            View the Source Code
+                        </a>
                     </div>
                     <TodayEvents events={events} />
                 </div>
